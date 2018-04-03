@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Overlay Test</title>
+        <link rel="stylesheet" href="/css/main.css">
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Top Donation</th>
+                <td id="topDonationParent"><span id="topDonation" class="preClip"></span></th>
+                <th>Latest Donation</th>
+                <td id="latestDonationParent"><span id="latestDonation" class="preClip"></span></th>
+                <th>Latest Follower</th>
+                <td id="latestFollowerParent"><span id="latestFollower" class="preClip"></span></th>
+                <th>Current Song</th>
+                <td id="currentSongParent"><span id="currentSong" class="preClip"></span></th>
+            </tr>
+        </table>
+
+        <span id="widthCalculator"></span>
+    </body>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        
+        var socket = io()
+
+        let widthCalculator = $('#widthCalculator')
+        
+        setup()
+        //randomTest()
+
+        // Update a part of the overlay.
+        function update(object, text) {
+
+            let parentObject = $('#' + object.attr('id') + 'Parent')
+            let width = parentObject.width()
+
+            parentObject.width(width)
+            object.addClass('clip')
+            setTimeout(() => {
+                object.text('')
+                widthCalculator.html(text)
+                parentObject.width(widthCalculator.width() + 10)
+
+                setTimeout(() => {
+                    object.html(text)
+                    setTimeout(() => {
+                        object.removeClass('clip')
+                    }, 1000);
+                }, 1000)
+            }, 1250)
+        }
+
+        // Setup the overlay. 
+        function setup() {
+
+            socket.emit('initiate')
+
+        }
+
+        socket.on('update', function(object) {
+            console.log(object)
+            if (object.type == 'currentSong') {
+                if (object.song == '') {
+                    update($('#' + object.type), '<span class="special seetrough"> No Song Playing </span>')
+                } else {
+                    update($('#' + object.type), object.song + '<span class="special seetrough"> - ' + object.artist + '</span>')
+                }
+            } else if (object.type == 'latestDonation' || object.type == 'topDonation') {
+                if (object.amount == '') {
+                    update($('#' + object.type), '<span class="special seetrough">' + object.user + '</span>')
+                } else {
+                    update($('#' + object.type), object.user + ' - <span class="special green">' + object.amount + '</span>')
+                }
+            } else {
+                if (object.user == 'No Followers') {
+                    update($('#' + object.type), '<span class="special seetrough">' + object.user + '</span>')
+                } else {
+                    update($('#' + object.type), object.user + '<span class="special seetrough"> - ' + object.count + '</span>')
+                }
+            }
+            update($(object.type), )
+        })
+
+    </script>
+</html>
