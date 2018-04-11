@@ -29,5 +29,18 @@ You can start the program within the src folder with this command.
 node main.js
 ```
 
+## Using the overlay
+How to actually use the overlay and some examples.
+
+### OBS
+To use the overlay in OBS follow the following steps.
+```
+ Make a new "Browser Source"
+ Use the following URL: localhost:3000/side
+```
+
+### A Neat Gif
+![Neat Gif](https://image.ibb.co/ikr7nH/iamdedis.gif)
+
 ## Contribution
 * VirtualPhilipp (German Translation/Testing)
