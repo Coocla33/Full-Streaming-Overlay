@@ -1,0 +1,17 @@
+{
+  "name": "full-streaming-overlay",
+  "version": "0.1.0",
+  "description": "A full streaming overlay for twitch",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Misha Bruinsma | Coocla33",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.0",
+    "spotilocal": "^0.4.4",
+    "streamlabs-socket-client": "0.0.4"
+  }
+}

@@ -1,0 +1,26 @@
+{
+    "labels": {
+        "donation": "Spenden",
+        "topDonation": "Top Spenden",
+        "follow": "Neuster Follow",
+        "song": "Aktuelles Lied",
+        "sub": "Neuster Abonnement",
+        "host": "Neuster Hoster"
+    },
+    "empty": {
+        "donation": "Keine Spenden",
+        "topDonation": "Keine Spenden",
+        "follow": "Keine Follower",
+        "host": "Keine Hoster",
+        "song": "Kein Song läuft",
+        "sub": "Keine Abonnenten"
+    },
+    "types": {
+        "month": "Monat",
+        "months": "Monate",
+        "viewer": "Zuschauer",
+        "viewers": "Zuschauer",
+        "bit": "Bit",
+        "bits": "Bits"
+    }
+}

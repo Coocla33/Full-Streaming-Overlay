@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Overlay Test</title>
+        <link rel="stylesheet" href="./css/main.css">
+    </head>
+
+    <body id="body">
+    </body>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+
+        let socket = io()
+
+        socket.on('update', (data) => {
+            console.log(data)
+            let msg = $('#' + data.type + '-msg')
+            let msg_text = $('#' + data.type + '-msg-text')
+
+            let length = $('#length-msg')
+            let length_text = $('#length-msg-text')
+
+            if (data.msg == '') {
+                data.msg = data.language.empty[data.type]
+            }
+
+            msg_text.addClass('up')
+            setTimeout(() => {
+                length_text.html(data.msg)
+                msg.css('width', msg.width())
+                msg.css('width', length.width())
+                setTimeout(() => {
+                    msg_text.html(data.msg)
+                    msg_text.removeClass('up')
+                    msg_text.addClass('down')
+                    setTimeout(() => {
+                        msg_text.removeClass('down')
+                    }, 500);
+                }, 1000);
+            }, 500)
+        })
+
+        // Setup sequence
+        socket.on('setup', (data) => {
+            // Setup text color
+            $('#body').css('color', data.config.overlay.textColor)
+
+            data.config.types.forEach((type) => {
+                
+                if (type == 'donation' && data.config.settings.enableTopDonation) {
+                    $("#body").append(
+                        "<div id='topDonation'>" +
+                        "  <div id='topDonation-parameter' class='special inline box' style='background: " + data.config.overlay.backgroundColor + "'>" +
+                        "      <span style='overflow: hidden'><p id='topDonation-parameter-text' class='parameter'>" + data.language.labels.topDonation + "</p></span>" +
+                        "  </div>" +
+                        "  <div id='topDonation-msg' class='special inline box msgBox' style='background: " + data.config.overlay.backgroundColor + "'>" +
+                        "      <span style='overflow: hidden'><p id='topDonation-msg-text' class='msg'>" + data.language.empty.topDonation + "</p></span>" +
+                        "  </div>" +
+                        "</div>"
+                    )
+                }
+
+                $("#body").append(
+                    "<div id='" + type + "'>" +
+                    "  <div id='" + type + "-parameter' class='special inline box' style='background: " + data.config.overlay.backgroundColor + "'>" +
+                    "      <span style='overflow: hidden'><p id='" + type + "-parameter-text' class='parameter'>" + data.language.labels[type] + "</p></span>" +
+                    "  </div>" +
+                    "  <div id='" + type + "-msg' class='special inline box msgBox' style='background: " + data.config.overlay.backgroundColor + "'>" +
+                    "      <span style='overflow: hidden'><p id='" + type + "-msg-text' class='msg'>" + data.language.empty[type] + "</p></span>" +
+                    "  </div>" +
+                    "</div>"
+                )
+            })
+
+            $("#body").append(
+                "<div id='length'>" +
+                "  <div id='length-msg' class='special inline box msgBox' style='color: black'>" +
+                "      <span style='overflow: hidden'><p id='length-msg-text' class='msg'>Test123</p></span>" +
+                "  </div>" +
+                "</div>"
+            )
+        })
+
+    </script>
+</html>
