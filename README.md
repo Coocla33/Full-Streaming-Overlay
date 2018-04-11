@@ -19,6 +19,7 @@ Installing is as easy as painting a square on a wall.
 ```
 Download the repositry.
 Run npm init
+Put your API KEY inside the apikey.json file located at "/src/apikey.json"
 Done!
 ```
 
