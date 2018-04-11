@@ -40,7 +40,7 @@ To use the overlay in OBS follow the following steps.
 ```
 
 ### A Neat Gif
-![Neat Gif](https://preview.ibb.co/nn36Ex/wadwd_made_dis.gif)
+![Neat Gif](https://image.ibb.co/epeP1c/wadwd_made_dis.gif)
 
 ## Contribution
 * VirtualPhilipp (German Translation/Testing)
